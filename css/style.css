@@ -1,0 +1,505 @@
+/* =========================================================
+   RESET & BASE
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #cfe9ff 0%, #8ec9ff 35%, #4ea3ff 65%, #1e73e8 100%);
+    color: #000;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+                     NAVIGATION
+========================================================= */
+
+nav {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 10px 0;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    margin: 0.5rem 1.5rem;
+    position: relative;
+}
+
+nav ul li a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 5px 0;
+    transition: color 0.3s, transform 0.3s;
+}
+
+nav ul li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #004aad;
+    transition: width 0.3s;
+    margin-top: 4px;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+nav ul li a:hover {
+    color: #004aad;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav ul li {
+        margin: 0.3rem 0;
+    }
+    nav ul li a {
+        font-size: 0.95rem;
+    }
+}
+
+
+/* =========================================================
+                GALLERY & LIGHTBOX SLIDER
+========================================================= */
+
+h1 {
+    text-align: center;
+    margin: 2rem 0 1rem;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.gallery figure {
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.gallery img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+.gallery figcaption {
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+
+/* Lightbox */
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 70%;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.lightbox img:hover {
+    transform: scale(1.02);
+}
+
+.lightbox-caption {
+    color: #fff;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+
+/* Lightbox Buttons */
+
+.lightbox-buttons {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.lightbox-buttons button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-buttons button:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.12);
+}
+
+
+/* Close Button */
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    width: 42px;
+    /* slightly larger for better click */
+    height: 42px;
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    border-radius: 50%;
+    /* perfectly round */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    /* 'X' size */
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.15);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+
+/* Mobile / small screens */
+
+@media (max-width: 768px) {
+    .close-btn {
+        width: 36px;
+        height: 36px;
+        top: 12px;
+        right: 15px;
+        font-size: 1.2rem;
+    }
+}
+
+
+/* =========================================================
+                ABOUT & CONTENT BOXES
+========================================================= */
+
+.about-container,
+.container {
+    max-width: 1000px;
+    width: 90%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.about-container h1 {
+    text-align: center;
+    color: #004aad;
+    margin-bottom: 1rem;
+    font-size: 2.2rem;
+}
+
+.about-container h2 {
+    margin: 1.6rem 0 0.6rem;
+    color: #0b3f86;
+    font-size: 1.4rem;
+}
+
+.about-container p {
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.container h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.container .lead {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.container .grid {
+    display: grid;
+    gap: 20px;
+}
+
+.container .card {
+    padding: 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.container .card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.container .card .subtitle {
+    font-size: 0.85rem;
+    color: #333;
+}
+
+
+/* =========================================================
+                    FOOTER
+========================================================= */
+
+footer {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    margin-top: 2rem;
+    color: #000000;
+    font-size: 0.9rem;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+    flex: 1;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+.footer-center {
+    text-align: center;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-text {
+    color: #000000;
+    margin: 2px 0;
+}
+
+.footer-left a,
+.footer-center a {
+    color: #000;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.footer-right a {
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.social-icon {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+}
+
+
+/* Responsive Footer */
+
+@media screen and (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        flex: 1 1 100%;
+        margin: 2px 0;
+    }
+}
+
+
+/* =========================================================
+                       PDF CARD
+========================================================= */
+
+.pdf-card {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 6px 8px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(11, 82, 166, 0.06);
+    color: #0b52a6;
+    max-width: 320px;
+}
+
+
+/* thumbnail */
+
+.pdf-thumb {
+    width: 60px;
+    height: 82px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(180deg, #fff, #f6f9ff);
+}
+
+.pdf-thumb svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
+/* meta & title */
+
+.pdf-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.pdf-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #0b52a6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    /* ↓ smaller text */
+    padding: 4px 8px;
+    /* ↓ tighter padding */
+    border-radius: 6px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.btn svg {
+    width: 14px;
+    /* ↓ smaller icon */
+    height: 14px;
+}
+
+.btn-view {
+    background: rgba(11, 82, 166, 0.08);
+    color: #0b52a6;
+    border: 1px solid rgba(11, 82, 166, 0.2);
+}
+
+.btn-download {
+    background: linear-gradient(90deg, #0b52a6, #0f7be6);
+    color: #fff;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
